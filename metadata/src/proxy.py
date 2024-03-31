@@ -36,11 +36,16 @@ class Proxy_pool(object):
         try:
             resp = requests.get(self.api_url)
             if resp.status_code == 200:
-                self.proxy = resp.text.strip()
-                self.life_span_count = PROXY_LIFESPAN  # Reset the life_span_counts
-                logger.info(
-                    f"Got proxy {self.proxy} with lifespan {self.life_span_count}"
-                )
+                content = resp.text.strip()
+                if content.startswith('{') and content.endswith('}'):
+                    logger.warning("Too many requests to fetch proxy. Wait and retry.")
+                    time.sleep(5)
+                    self.get()
+                else:
+                    self.proxy = content
+                    self.life_span_count = PROXY_LIFESPAN  # Reset the life_span_counts
+                    logger.info(f"Got proxy {self.proxy} with lifespan {self.life_span_count}")
+                
             elif resp.status_code == 111:
                 logger.warning("Too many requests to fetch proxy. Wait and retry.")
                 time.sleep(5)

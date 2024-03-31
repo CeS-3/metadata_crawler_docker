@@ -125,7 +125,7 @@ def delete_file_if_exists(file_path):
         except Exception as e:
             logger.warning(f"Error deleting the old result file '{file_path}': {e}")
     else:
-        logger.file(f"The old result file '{file_path}' does not exist.")
+        logger.info(f"The old result file '{file_path}' does not exist.")
 
 
 if __name__ == "__main__":

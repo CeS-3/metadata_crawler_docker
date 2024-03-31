@@ -71,9 +71,9 @@ sudo docker build -t metadata:latest .
 
 docker build -t crawler:latest .
 docker run \
-  --name metadata_1 \
-  --network=meta \
-  -e PREFIX=1 \
+  --name metadata_e \
+  --network=metadata_meta \
+  -e PREFIX=e \
   -e API_URL=http://api.proxy.ip2world.com/getProxyIp?num=1&lb=4&return_type=txt&protocol=http \
   -e MONGO_HOST=mongo \
   -e MONGO_PORT=27017 \

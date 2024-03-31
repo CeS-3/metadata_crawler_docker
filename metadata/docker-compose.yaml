@@ -3,11 +3,11 @@ services:
   crawler:
     build: .
     image: crawler:latest
-    container_name: metadata_${PREFIX:-1}
+    container_name: metadata_d
     networks:
       - meta
     environment:
-      - PREFIX=${PREFIX:-1}
+      - PREFIX=d
       - API_URL=http://api.proxy.ip2world.com/getProxyIp?num=1&lb=4&return_type=txt&protocol=http
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
