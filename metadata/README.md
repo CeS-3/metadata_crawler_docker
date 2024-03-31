@@ -54,6 +54,8 @@ sudo docker network create  -d bridge meta
 # /metadata
 docker run --name mongo --network=meta -v ./../database:/data/db -v ./data:/result --restart=unless-stopped mongo:latest
 ```
+注意:如果需要后台运行,在参数中加上`-d`
+
 
 注意:如果mongo容器意外关闭,可以通过运行相同指令自动恢复
 
@@ -79,9 +81,7 @@ docker run \
   -e MONGO_PORT=27017 \
   -e DB_NAME=metadata \
   -v ./../docker_images/data:/data \
-  --restart-condition=on-failure \
-  --restart-delay=5s \
-  --restart-max-attempts=3 \
+  --restart=on-failure \
   crawler:latest
 ```
 ### Docker-compose运行
